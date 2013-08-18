@@ -1,0 +1,8 @@
+<resources>
+<color name="red">#FF0000</color>
+<color name="blue">#0000FF</color>
+<color name="lightred">#FFBBBB</color>
+<color name="lightblue">#BBBBFF</color>
+<color name="record_upd_hdr">#696969</color>
+<color name="trans">@android:color/transparent</color>
+</resources>

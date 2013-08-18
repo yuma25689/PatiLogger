@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+    <!--
+	<TableLayout
+		android:background="@drawable/gradi_silver"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:stretchColumns="1"
+	    >
+	    <TableRow>
+	    
+	    <TextView android:text="期間(開始)" android:layout_marginRight="5px"></TextView>
+		<TextView android:id="@+id/period_start_graph1"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content" />
+		<Button
+				android:id="@+id/period_start_graph1_btn"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content" />
+		</TableRow>
+	    <TableRow>	      
+	    <TextView android:text="期間(終了)" android:layout_marginRight="5px"></TextView>
+		<TextView android:id="@+id/period_end_graph1"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content" />
+		<Button	android:id="@+id/period_end_graph1_btn"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content" />
+		</TableRow>
+	</TableLayout>
+	-->
+	<WebView
+		android:id="@+id/wvViewGraphTest"
+	    android:orientation="vertical"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:layout_weight="1.0"
+	 >
+	</WebView>
+	
+<LinearLayout
+	android:id="@+id/graph_bottomBar"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/gradi_silver"
+/>	
+
+</LinearLayout>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+ 	<HorizontalScrollView 
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:layout_weight="1.0"
+	>
+ 	<ScrollView 
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	>
+	<LinearLayout
+	    android:orientation="vertical"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"	    
+	 >
+		<TableLayout
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    >
+		    <TableRow>
+		    <TextView android:text="期間(月)"></TextView>
+			<Spinner android:id="@+id/spn_period_winrate"
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content" />
+		    <TextView android:text="集計方法"></TextView>
+			<Spinner android:id="@+id/spn_group_winrate"
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content" />
+			</TableRow>
+		    <TableRow>
+		    <TextView android:text="台"></TextView>
+			<Spinner android:id="@+id/spn_machine_winrate"
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content" />
+		    <TextView android:text="店"></TextView>
+			<Spinner android:id="@+id/spn_parlor_winrate"
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content" />
+			</TableRow>
+		</TableLayout>
+		<TextView android:id="@+id/lblWinRate"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"></TextView>
+		<TextView android:id="@+id/txtWinRate" 
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"></TextView>
+		<TextView android:id="@+id/lblWinCount" 
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"></TextView>
+		<TextView android:id="@+id/txtWinCount" 
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"></TextView>
+		<TextView android:id="@+id/txtMaxMinPerPeriod" 
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"></TextView>
+	</LinearLayout>
+	</ScrollView>
+	</HorizontalScrollView>
+<LinearLayout
+	android:id="@+id/winrate_bottomBar"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/gradi_silver"
+/>
+</LinearLayout>

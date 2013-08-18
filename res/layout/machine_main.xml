@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+<Button android:id="@+id/btnMachineAdd" android:text="新規追加" android:layout_width="fill_parent"
+android:layout_height="wrap_content"></Button>
+<ExpandableListView android:id="@+id/lstMachineMain" 
+android:layout_width="fill_parent" 
+android:layout_height="wrap_content"
+android:layout_weight="1.0"></ExpandableListView>
+<TextView android:id="@+id/txtEmpty"
+android:layout_width="fill_parent" 
+android:layout_height="wrap_content"
+android:text="@string/no_data"
+android:gravity="center"
+android:layout_weight="1.0"></TextView>
+<LinearLayout
+	android:id="@+id/mcnview_bottomBar"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/gradi_silver"
+/>
+</LinearLayout>

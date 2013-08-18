@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+
+<ListView android:id="@+id/lstMoneyMain" 
+android:layout_width="fill_parent" 
+android:layout_height="wrap_content"
+android:layout_weight="1.0"></ListView>
+<TextView android:id="@+id/txtEmpty"
+android:layout_width="fill_parent" 
+android:layout_height="wrap_content"
+android:text="@string/no_data"
+android:gravity="center"
+android:layout_weight="1.0"></TextView>
+
+<LinearLayout
+	android:id="@+id/money_bottomBar"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/gradi_silver"
+/>
+</LinearLayout>

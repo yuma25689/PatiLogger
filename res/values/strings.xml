@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PatiLogger</string>
+    <string name="db_name">PatiLogger.db</string>
+    <string name="db_ver">1</string>
+    <string name="add">新規追加</string>
+    <string name="unknown">不明</string>
+    <string name="noset">未設定</string>
+    <string name="not_want_set">設定しない</string>
+	<string name="pref_title">設定</string>
+	<string name="lst_qr_launch_title">起動する他アプリ</string>
+	
+    <string name="key_tblLevel">tblLevel</string>
+    <string name="key_tblOpenInfArray">tblOpenInfArray</string>
+    <string name="key_tblMainClmn">tblMainClmn</string>
+    <string name="key_tblSubClmn1">tblSubClmn1</string>
+    <string name="key_tblSubClmn2">tblSubClmn2</string>
+    <string name="key_tblSubClmn3">tblSubClmn3</string>
+    <string name="key_dlgTitle">dlgTitle</string>
+    <string name="key_cantDpl">cantDpl</string>
+    <string name="key_id">id</string>
+    <string name="key_addMsgId">addMsgId</string>
+    <string name="key_update">update</string>
+    <string name="key_updMsgId">updMsgId</string>
+    <string name="key_money_workdatefrom">money_workdatefrom</string>
+    <string name="key_money_workdateto">money_workdateto</string>
+    <string name="key_money_monthfrom">money_monthfrom</string>
+    <string name="key_money_monthto">money_monthto</string>
+    <string name="key_money_machinename">money_machinename</string>
+    <string name="key_money_parlorname">money_parlorname</string>
+    <string name="key_money_makername">money_makername</string>
+    <string name="key_machine_makername">machine_makername</string>
+    <string name="key_machineman_where">machine_where</string>
+    <string name="key_parlorman_where">parlor_where</string>
+    <string name="key_request_result">request_result</string>
+    <string name="key_machine_id">machine_id</string>
+    <string name="key_parlor_id">parlor_id</string>
+    <string name="key_maker_id">maker_id</string>
+	<string name="key_request_id">request_id</string>
+	<string name="key_srch_where">srch_where</string>
+
+    <string name="DlgTitle_Main">パチスロ収支ロガー</string>
+    <string name="DlgTitle_McnList">台一覧</string>
+    <string name="DlgTitle_McnSelect">台選択(台タッチで選択)</string>
+    <string name="DlgTitle_ParlorList">店一覧</string>
+    <string name="DlgTitle_ParlorSelect">店選択(店タッチで選択)</string>
+    <string name="DlgTitle_MakerList">メーカー一覧</string>
+    <string name="DlgTitle_MakerSelect">メーカー選択(タップで選択)</string>    
+    <string name="DlgTitle_MoneyList">収支一覧</string>
+    <string name="DlgTitle_MoneySrch">収支検索</string>
+    <string name="DlgTitle_ViewPerDay">日別収支一覧</string>
+    <string name="DlgTitle_ViewPerMonth">月別収支一覧</string>
+    <string name="DlgTitle_ViewPerMachine">台別収支一覧</string>
+    <string name="DlgTitle_ViewPerShop">店別収支一覧</string>
+    <string name="DlgTitle_ViewPerMaker">メーカー別収支一覧</string>
+    <string name="DlgTitle_ViewWinRate">勝率等</string>
+    <string name="DlgTitle_TotalGraph">通算収支グラフ</string>
+    <string name="DlgTitle_DataView">データ閲覧メニュー</string>
+    <string name="DlgTitle_GraphView">グラフ閲覧メニュー</string>
+    <string name="DLG_TITLE_CONFIRM">確認</string>
+	<string name="DLG_TITLE_EXPORT_PROGRESS">エクスポート中・・・</string>
+	<string name="DLG_TITLE_IMPORT_PROGRESS">インポート中・・・</string>
+	<string name="DLG_TITLE_EXPORT_OK">エクスポートが完了しました。</string>
+	<string name="DLG_TITLE_IMPORT_OK">インポートが完了しました。</string>
+    
+    <string name="caption_money">収支</string>
+    <string name="caption_machine">台</string>
+    <string name="caption_maker">メーカー</string>
+    
+	<string name="DATA_TYPE_KEY">DATA_TYPE_KEY</string>
+	<string name="ASS_VIEW_ID">ASS_VIEW_ID</string>
+	<string name="DATE_DATAVALUE">DATE_DATAVALUE</string>
+	<string name="TIME_DATAVALUE">TIME_DATAVALUE</string>
+
+	<string name="StrNewRegister">新規登録</string>    
+	<string name="StrUpdate">更新</string>
+
+	<string name="StrMsgPrlnStart">「</string>
+	<string name="StrMsgPrlnEnd">」</string>
+	<string name="StrItem">項目</string>
+
+    <string name="McnTblDlgTitle">台情報</string>
+    <string name="McnTblName">MachineMan</string>
+    <string name="McnTblMainClmnName">MachineName</string>
+    <string name="McnTblSubClmnName1">PatiTypeId</string>
+    <string name="McnTblSubClmnName2">MakerId</string>
+    <string name="McnTblDef">(_id integer primary key autoincrement,MachineName text not null, WorkStartDate text, EndDate text, FavoriteLevel real, Description text, PatiTypeId integer, MakerId integer, WorkId integer, CounterId integer, InsDatetime text, LastUpdDatetime text)</string>
+    <string name="McnTblROClmns">_id,WorkId,CounterId,WorkStartDate,InsDatetime,EndDate,LastUpdDatetime</string>
+
+    <string name="MakerTblDlgTitle">メーカー情報</string>
+    <string name="MakerTblName">MakerMan</string>
+    <string name="MakerTblMainClmnName">MakerName</string>
+    <!-- <string name="MakerTblSubClmnName1">MakerTypeId</string>  -->
+    <string name="MakerTblDef">(_id integer primary key autoincrement,MakerName text not null, FavoriteLevel real, Description text, InsDatetime text, LastUpdDatetime text)</string>
+    <string name="MakerTblROClmns">_id,InsDatetime,LastUpdDatetime</string>
+
+    <string name="McnDtlTblDlgTitle">台情報明細</string>
+    <string name="McnDtlTblName">MachineManDtl</string>
+    <string name="McnDtlTblDef">(ParentID integer not null,Priority integer not null,ItemName text not null,ProbDenom integer,Description text, InsDatetime text, LastUpdDatetime text,primary key(ParentID, Priority ))</string>
+    <string name="McnDtlTblROClmns">_id,InsDatetime,LastUpdDatetime</string>
+
+    <string name="ParlorTblDlgTitle">店情報</string>
+    <string name="ParlorTblName">ParlorMan</string>
+    <string name="ParlorTblMainClmnName">ParlorName</string>
+    <string name="ParlorTblDef">(_id integer primary key autoincrement,ParlorName text not null, FavoriteLevel real, Description text, InsDatetime text, LastUpdDatetime text)</string>
+    <string name="ParlorTblROClmns">_id,InsDatetime,LastUpdDatetime</string>
+
+    <string name="MoneyTblDlgTitle">収支情報</string>
+    <string name="MoneyTblName">MoneyMan</string>
+    <string name="MoneyTblMainClmnName">WorkDate</string>
+    <string name="MoneyTblSubClmnName1">WorkTime</string>
+    <string name="MoneyTblSubClmnName2">McnId</string>
+    <string name="MoneyTblSubClmnName3">ParlorId</string>
+    <string name="MoneyTblSubClmnName4">CashFlow</string>
+    <string name="MoneyTblDef">(_id integer primary key autoincrement, WorkDate text not null, WorkTime text not null, WorkEndTime text　not null, Invest integer, Recovery integer, CashFlow integer not null, McnId integer, ParlorId integer, ExpVal integer, WorkedInterval text, Description text, InsDatetime text, LastUpdDatetime text)</string>
+    <string name="MoneyTblROClmns">_id,InsDatetime,LastUpdDatetime</string>
+
+    <string name="WorkTblTitle">稼動管理</string>
+    <string name="WorkTblName">WorkMan</string>
+    <string name="WorkTblDef">(_id integer primary key autoincrement, Now integer not null, Total integer not null, Content text not null, ParentID integer,Description text, InsDatetime text, LastUpdDatetime text)</string>
+    <string name="WorkTblROClmns">_id,InsDatetime,LastUpdDatetime</string>
+
+    <string name="WorkDtlTblTitle">稼動管理詳細</string>
+    <string name="WorkDtlTblName">WorkDtlMan</string>
+    <string name="WorkDtlTblDef">(_id integer primary key autoincrement, Now integer not null, Total integer not null, Content text not null, ParentID integer,Description text, InsDatetime text, LastUpdDatetime text)</string>
+    <string name="WorkDtlTblROClmns">_id,InsDatetime,LastUpdDatetime</string>
+
+    <string name="CounterTblTitle">カウンタ</string>
+    <string name="CounterTblName">Counter</string>
+    <string name="CounterTblDef">(ParentID integer not null,Priority integer not null,ItemName text not null,ProbDenom integer,Description text, InsDatetime text, LastUpdDatetime text,primary key(ParentID, Priority ))</string>
+    <string name="CounterROClmns">_id,InsDatetime,LastUpdDatetime</string>
+
+	<string name="RateDlg_Title">台の個人的な評価(1～5)</string>
+
+	<string name="BtnCap_Date">日付入力</string>
+	<string name="BtnCap_Time">時間入力</string>
+	<string name="BtnCap_Rate">入力</string>
+	<string name="BtnCap_Mcn">台選択</string>
+	<string name="BtnCap_Parlor">店選択</string>
+	<string name="BtnCap_Maker">メーカー選択</string>
+
+	<string name="not_updated">データは更新されていません。</string>
+	<string name="no_data">データが登録されていません。</string>
+
+	<string name="msg_new_machine_add">新しい台{0}を登録しました。</string>
+	<string name="msg_upd_machine">台{0}のデータを更新しました。</string>
+	<string name="msg_new_parlor_add">新しい店{0}を登録しました。</string>
+	<string name="msg_upd_parlor">店{0}のデータを更新しました。</string>
+	<string name="msg_new_maker_add">新しいメーカー{0}を登録しました。</string>
+	<string name="msg_upd_maker">メーカー{0}のデータを更新しました。</string>	
+	<string name="msg_new_cashflow_add">新しい収支{0}を登録しました。</string>
+	<string name="msg_upd_cashflow">収支{0}のデータを更新しました。</string>
+	<string name="ErrNotNull">に空白は設定できません。</string>
+	<string name="ErrDpl">は既に登録されています。</string>
+	<string name="MSG_EXPORT_PROGRESS">全てのデータをエクスポートしています・・・。</string>
+	<string name="MSG_EXPORT_CONFIRM">下記ファイルへ全てのデータをエクスポートしますが、宜しいですか？\n\n</string>
+	<string name="MSG_EXPORT_OK">下記ファイルへ全てのデータをエクスポートしました。\n\n</string>
+	<string name="MSG_IMPORT_PROGRESS">インポート中です・・・</string>
+
+	<string name="add_ex">（入力中データ有）</string>
+		
+	<string name="btnOK">OK</string>
+	<string name="btnCancel">ｷｬﾝｾﾙ</string>
+    <string name="btnBack">戻る</string>
+    <string name="btnSrch">検索</string>
+	<string name="btnRegister">登録</string>
+	<string name="btnAll">全部</string>
+	<string name="btnSpecial">特別な並び順</string>
+	<string name="btnUpd">更新</string>
+	<string name="btnNext">次へ</string>
+	<string name="btnPrev">前へ</string>
+	<string name="btnQR">QR</string>
+		<string name="btnNext30">次の30件</string>
+	<string name="btnPrev30">前の30件</string>
+
+	<string name="all_period">通算</string>
+	<string name="all_machine">全台</string>
+	<string name="all_parlor">全店</string>
+
+	<string-array name="main_menu">
+		<item>収支管理</item>
+		<item>台管理</item>
+		<item>店管理</item>
+		<item>メーカー管理</item>
+    	<!-- <item>稼動管理</item>  -->
+		<item>データ閲覧</item>
+		<item>グラフ閲覧</item>
+	</string-array>
+	<string-array name="dataview_menu">
+		<item>日別収支閲覧</item>
+		<item>月別収支閲覧</item>
+		<item>台別収支閲覧</item>
+		<item>店別収支閲覧</item>
+		<item>メーカー別収支閲覧</item>
+		<item>勝率等</item>
+	</string-array>
+	<string-array name="graphview_menu">
+		<item>通算収支グラフ閲覧</item>
+		<item>月別収支グラフ閲覧</item>
+		<item>台別稼働時間割合グラフ閲覧(試作版)</item>
+	</string-array>
+	
+	<!-- テーブル一覧
+	<string-array name="tbl_list">
+    	<item>MachineMan</item>
+		<item>ParlorMan</item>
+		<item>MachineManDtl</item>
+	</string-array>
+	-->
+	
+	<!-- 重複不可カラムリスト -->
+	<string-array name="machine_cant_dpl">
+    	<item>MachineName</item>
+	</string-array>
+	<string-array name="parlor_cant_dpl">
+    	<item>ParlorName</item>
+	</string-array>
+	<string-array name="maker_cant_dpl">
+    	<item>MakerName</item>
+	</string-array>	
+	<!--
+	<string-array name="money_cant_dpl">
+    	<item>MachineManDtl</item>
+	</string-array>
+	 -->
+
+	<string name="TITLE_ERROR">ERROR</string>
+	<string name="TITLE_IMPORT_MODE">インポート方法の選択</string>
+	<string name="MSG_FAILED_DIR_CREATE">エクスポート先ディレクトリの作成に失敗してしまいました・・・。</string>
+	<string name="MSG_SELECT_IMPORT_MODE">インポート方法を下記から選択して下さい。</string>
+	<string name="MSG_ADD_DONT_ALLOW_DUP">重複データがあった場合、全部中止します。宜しいですか？</string>
+	<string name="MSG_ADD_IGNORE_DUP">重複データがあった場合、それだけインポートせず他はインポートします。宜しいですか？</string>
+	<string name="MSG_ALL_CLR_INSERT">現在のデータを全て削除し、インポートされるファイルのものと入れ替えます。宜しいですか？</string>
+	<string name="MSG_IMP_FILE_NONE">下記のディレクトリにインポート対象のファイルがありません。\n\n</string>
+	<string name="MSG_ADD">元のデータに追加</string>
+	<string name="MSG_CLEAR_ALL">全削除後追加</string>
+	<string name="ERR_MACHINE_INS">台情報の挿入に失敗しました。</string>
+	<string name="ERR_TIME_INS">時間情報の挿入に失敗しました。</string>
+	<string name="ERR_MACHINE_INS_DUP">重複する台情報がありました。</string>
+	<string name="ERR_XML_INVALIDATE">XMLの構造が変です・・・。</string>
+	<string name="MSG_DUP_ERR">重複エラー</string>
+	<string name="MSG_MACHINE_DUP_ERR">台情報登録に失敗しました。\n既に同じ名前の台情報が登録されています。</string>
+	<string name="MSG_PARLOR_DUP_ERR">店情報登録に失敗しました。\n既に同じ名前の店情報が登録されています。</string>
+	<string name="MSG_MONEY_DUP_ERR">収支情報登録に失敗しました。\n既に同じ名前の収支情報が登録されています。</string>
+	<string name="ERR_INS_DUP">重複する%sがありました。</string>
+	<string name="ERR_INS">%sの挿入に失敗しました。</string>
+	<string name="TITLE_FILE_SELECT">インポートするファイルを選択</string>
+	<string name="MSG_FILE_SELECT">ファイルを選択して下さい。</string>
+	<string name="MSG_IMPORT_OK">下記ファイルのインポートが完了しました。\n\n</string>
+	<string name="MACHINE_INF">台情報:</string>
+	<string name="PARLOR_INF">店情報:</string>
+	<string name="MAKER_INF">メーカー情報:</string>	
+	<string name="MONEY_INF">収支情報:</string>
+	<string name="COUNT">件</string>
+	
+	<!-- 変換テーブル -->
+	<string-array name="clmn_title">
+    	<item>MachineName</item>
+		<item>WorkStartDate</item>
+		<item>EndDate</item>
+		<item>FavoriteLevel</item>
+		<item>Description</item>
+		<item>ParlorName</item>
+		<item>WorkDate</item>
+		<item>WorkTime</item>
+		<item>WorkEndTime</item>
+		<item>Invest</item>
+		<item>Recovery</item>
+		<item>CashFlow</item>
+		<item>ParlorId</item>
+		<item>McnId</item>
+		<item>ExpVal</item>
+		<item>WorkedInterval</item>
+		<item>PatiTypeId</item>
+		<item>MakerName</item>
+		<item>MakerId</item>		
+	</string-array>
+	<string-array name="clmn_title_show">
+    	<item>台の名前</item>
+		<item>稼動開始日</item>
+		<item>検定切れ予定日</item>
+		<item>評価</item>
+		<item>備考</item>
+		<item>店の名前</item>
+		<item>稼動日</item>
+		<item>稼動開始時間</item>
+		<item>稼動終了時間</item>
+		<item>投資</item>
+		<item>回収</item>
+		<item>収支</item>
+		<item>店</item>
+		<item>台</item>
+		<item>期待収支</item>
+		<item>稼動時間</item>
+		<item>台種別</item>
+		<item>メーカー名</item>
+		<item>メーカー</item>		
+	</string-array>
+
+	<!-- コントロール特定用（あまり完璧ではないが下記の名前を持つカラムは下記のコントロールにする -->
+	<!-- 下記に当てはまらなければ、integerは数値用、textはEditTextとする -->
+	<!-- 日付特定用-->
+	<string-array name="ctl_date">
+		<item>WorkStartDate</item>
+		<item>EndDate</item>
+		<item>WorkDate</item>
+	</string-array>
+	<!-- 時間特定用-->
+	<string-array name="ctl_time">
+		<item>WorkEndTime</item>
+		<item>WorkTime</item>
+		<item>WorkedInterval</item>
+	</string-array>
+	<!-- 複数行テキスト特定用-->
+	<string-array name="ctl_mul_edit">
+		<item>Description</item>
+	</string-array>
+	<!-- スターコントロール特定用 -->
+	<string-array name="ctl_star">
+		<item>FavoriteLevel</item>
+	</string-array>
+	<string-array name="import_modes">
+		<item>現在のデータに追加(重複はエラー)</item>
+		<item>現在のデータに追加(重複は無視)</item>
+		<item>現在のデータを全て消す</item>
+	</string-array>
+	<string name="btnClear">クリア</string>
+
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+	xmlns:android="http://schemas.android.com/apk/res/android">
+	<PreferenceCategory android:title="@string/pref_title">
+		<ListPreference
+		    android:id="@+id/mainpref_lst_qr_launch"
+			android:key="lst_qr_launch_key"
+			android:title="@string/lst_qr_launch_title"
+			android:dialogTitle="@string/lst_qr_launch_title" />
+	</PreferenceCategory>
+</PreferenceScreen>

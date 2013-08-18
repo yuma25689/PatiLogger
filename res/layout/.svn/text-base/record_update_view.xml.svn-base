@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"	
+ >
+<TableLayout 
+	android:id="@+id/rec_upd_tbl_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:stretchColumns="1"
+    android:shrinkColumns="1"
+    >
+    <!-- 共通ヘッダ行 -->
+    <TableRow android:background="@color/record_upd_hdr">
+    	<TextView android:text="項目名"></TextView>
+    	<TextView android:text="値"></TextView>
+    </TableRow>
+</TableLayout>
+</LinearLayout>
