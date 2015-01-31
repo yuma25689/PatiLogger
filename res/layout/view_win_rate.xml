@@ -62,6 +62,7 @@
 	</ScrollView>
 	</HorizontalScrollView>
 <LinearLayout
+    android:orientation="horizontal"    
 	android:id="@+id/winrate_bottomBar"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"

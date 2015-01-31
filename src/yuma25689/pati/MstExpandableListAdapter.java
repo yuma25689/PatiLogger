@@ -17,13 +17,13 @@ public class MstExpandableListAdapter extends BaseExpandableListAdapter {
 		private Context ctx = null;
 		//private int[] rowId;  
 		private List<String> groupData;  
-		private List<List<MainMenuData>> childData;  
+		private List<List<DataMenuData>> childData;  
              
 		public MstExpandableListAdapter(
 				Context ctx,
 				//int[] rowId,
 				List<String> groups, 
-				List<List<MainMenuData>> children){
+				List<List<DataMenuData>> children){
 			this.ctx = ctx;
 			//this.rowId = rowId;  
 			this.groupData = groups;  
@@ -66,7 +66,7 @@ public class MstExpandableListAdapter extends BaseExpandableListAdapter {
         	LayoutInflater inflater = (LayoutInflater)ctx.getSystemService(
         			Context.LAYOUT_INFLATER_SERVICE);  
         	
-        	MainMenuData item = (MainMenuData)getChild(groupPosition, childPosition);
+        	DataMenuData item = (DataMenuData)getChild(groupPosition, childPosition);
   			// 受け取ったビューがnullなら新しくビューを生成 
             if( view == null )
             {

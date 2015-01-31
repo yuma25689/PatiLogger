@@ -1,7 +1,9 @@
 package yuma25689.pati;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 
 import android.app.AlertDialog;
@@ -1165,6 +1167,14 @@ public class RecordUpdater extends ScrollView {
 		}
 		
 		// 更に、マスタに登録されている値をSpinnerで選ぶ項目
+		// 現在日時を取得、数ヶ月前以前から登録のない台は、前に行かないようにする。
+		Calendar now = Calendar.getInstance();
+		Date d = now.getTime();
+		d.setMonth( d.getMonth() - 3 );
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		String strDateBefore3Month = sdf.format(d);
+		String strPeriodConditionWherePhrase = " where WorkDate >= '" + strDateBefore3Month + "' ";
+		
 		// ★台
 		// TODO: ビタ打ちできたら直す
 		if( clmnTmp.getStrColumnName().equals( "McnId" ) )
@@ -1175,16 +1185,20 @@ public class RecordUpdater extends ScrollView {
 			layoutTmp.setTag(STR_PARENT_MARK);
 			//layoutTmp.setBackgroundColor(iRowColor);
 
+			
 			// queryでSELECTを実行
 	    	//String[] columns = {"_id",ctx.getString(R.string.McnTblMainClmnName)};
 	    	//String selection = null;
 	    	SQLiteDatabase db = dbHelper.getReadableDatabase();
 	    	Cursor c = db.rawQuery( 
 	    			"select -1 as _id, '未設定' as " + ctx.getString(R.string.McnTblMainClmnName) 
-	    			+ ", 0 as sort, 0 as refcnt union select t1._id, t1." + ctx.getString(R.string.McnTblMainClmnName)
+	    			+ ", 0 as sort, 0 as refcnt "
+	    			+ " union select t1._id, t1." + ctx.getString(R.string.McnTblMainClmnName)
 	    			+ ", 1 as sort, COALESCE(t2.refcnt,0) as refcnt from " + ctx.getString(R.string.McnTblName)
 	    			+ " t1 left outer join ( select McnId, -1 * count(1) as refcnt from " 
 	    				+ ctx.getString(R.string.MoneyTblName)
+	    				// 2015/01/31 追加
+	    				+ strPeriodConditionWherePhrase			
 	    				+ " group by McnId ) t2 on t1._id = t2.McnId "
 	    			+ " order by sort, refcnt, " + ctx.getString(R.string.McnTblMainClmnName)
 	    			,null
@@ -1306,6 +1320,8 @@ public class RecordUpdater extends ScrollView {
 	    			+ ", 1 as sort, COALESCE(t2.refcnt,0) as refcnt from " + ctx.getString(R.string.ParlorTblName)
 	    			+ " t1 left outer join ( select ParlorId, -1 * count(1) as refcnt from " 
 	    				+ ctx.getString(R.string.MoneyTblName)
+	    				// 2015/01/31 追加
+	    				+ strPeriodConditionWherePhrase
 	    				+ " group by ParlorId ) t2 on t1._id = t2.ParlorId "
 	    			+ " order by sort, refcnt, " + ctx.getString(R.string.ParlorTblMainClmnName)
 	    			,null	    			

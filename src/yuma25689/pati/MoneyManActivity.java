@@ -664,6 +664,7 @@ public class MoneyManActivity extends Activity
     	} catch( Exception e ) {
     		e.printStackTrace();
     	}
+    	db.close();
     	//item = getResources().getStringArray(R.array.main_menu);
     	if( item != null ) {
 	    	for( int i=0; i < item.length; i++ ) {

@@ -37,7 +37,7 @@ public class MakerManActivity extends Activity
 	
 	private ExpandableListView listView;
 	//private ListView listView;
-	//private ArrayList<MainMenuData> list = null;
+	//private ArrayList<DataMenuData> list = null;
 	
 	private final int MENU_COPY = 4;
 	private final int MENU_EDIT = 3;
@@ -218,7 +218,7 @@ public class MakerManActivity extends Activity
 			
 				   // Array created earlier when we built the
 				   // expandable list
-				  MainMenuData contact = (MainMenuData) mAdapter.getChild(
+				  DataMenuData contact = (DataMenuData) mAdapter.getChild(
 						  groupPosition, childPosition);
 				  menu.setHeaderTitle(contact.getMenuString());
 				  menu.add(0, MENU_EDIT, 0, "編集");
@@ -250,7 +250,7 @@ public class MakerManActivity extends Activity
     	     .getPackedPositionChild(info.packedPosition);  
     	  }  
     	  Intent intent = null;
-    	  MainMenuData contact = (MainMenuData) mAdapter.getChild(groupPos, childPos);  
+    	  DataMenuData contact = (DataMenuData) mAdapter.getChild(groupPos, childPos);  
     	  switch (menuItem.getItemId()) { 
     	  	  case MENU_EDIT:
     	  		  startEditItem( contact.getMenuId() );
@@ -322,7 +322,7 @@ public class MakerManActivity extends Activity
 			startActivity( intent );    			
 			break;*/
 		default:
-			MainMenuData item = (MainMenuData)adapter.getChild(groupPosition, childPosition);
+			DataMenuData item = (DataMenuData)adapter.getChild(groupPosition, childPosition);
 
 			// 結果取得用の起動の場合、結果を返して終了
 			if( iRequestResult == 1 )
@@ -599,13 +599,13 @@ public class MakerManActivity extends Activity
     	// 親要素  
         groupData = new ArrayList<String>();  
         // 子要素  
-        List<List<MainMenuData>> childData 
-        	= new ArrayList<List<MainMenuData>>();    	
+        List<List<DataMenuData>> childData 
+        	= new ArrayList<List<DataMenuData>>();    	
 
    		// リストの最初は「新規追加」
         /*
-        this.list = new ArrayList<MainMenuData>();
-    	MainMenuData data = new MainMenuData();
+        this.list = new ArrayList<DataMenuData>();
+    	DataMenuData data = new DataMenuData();
     	data.setMenuString( getString(R.string.add) );
        	data.setResId( android.R.drawable.ic_menu_add );
     	list.add( data );
@@ -617,14 +617,14 @@ public class MakerManActivity extends Activity
     	// 台の名称の最初の1文字を取得
     	String[] columns = {
     			"COUNT(*)",
-    			"SUBSTR(" + getString(R.string.MakerTblMainClmnName) + ", 1, 1)"
+    			"SUBSTR(" + getString(R.string.MakerTblMainClmnName) + ", 1, 2)"
     			};
     	String selection = null;
-    	String groupBy = "SUBSTR(" + getString(R.string.MakerTblMainClmnName) + ", 1, 1)";
+    	String groupBy = "SUBSTR(" + getString(R.string.MakerTblMainClmnName) + ", 1, 2)";
     	SQLiteDatabase db = dbMaker.getReadableDatabase();
     	try {
 	    	Cursor cPrt1 = db.query(tblInf_MakerMain.getTblName(),
-	    			columns, selection, null, groupBy, null, "SUBSTR(" + getString(R.string.MakerTblMainClmnName) + ", 1, 1)");
+	    			columns, selection, null, groupBy, null, "SUBSTR(" + getString(R.string.MakerTblMainClmnName) + ", 1, 2)");
 	    	cPrt1.moveToFirst();
 	    	for (int i = 0; i < cPrt1.getCount(); i++) {
 	    		//Map<String, String> curMap = new HashMap<String, String>();
@@ -648,7 +648,7 @@ public class MakerManActivity extends Activity
 	    			//curMap.put( GRP_NAME_KEY, strCurParentName );
 	    			groupData.add( strCurParentName );//curMap );
 	    		//}
-	    		List<MainMenuData> children = new ArrayList<MainMenuData>();
+	    		List<DataMenuData> children = new ArrayList<DataMenuData>();
 	    		String[] columnsChild = {"_id",getString(R.string.MakerTblMainClmnName)};//,
 	        			//getString(R.string.MakerTblSubClmnName1)};
 				//エスケープ文字のチェックを行う。あれば置換する。
@@ -679,7 +679,7 @@ public class MakerManActivity extends Activity
 	    	    	    //subclmn1[j] = cChild.getInt(2);
 	    	    	    // Map<String, String> curChildMap = new HashMap<String, String>();
 	    	    	    //curChildMap.put( CHILD_NAME_KEY, cChild.getString(1) );
-	    	    	    MainMenuData data = new MainMenuData();
+	    	    	    DataMenuData data = new DataMenuData();
 	    	        	data.setMenuString( cChild.getString(1) );
 	    	        	data.setMenuId(cChild.getInt(0));
 	    	        	//if( cChild.getInt(2) == 0 )
@@ -744,7 +744,7 @@ public class MakerManActivity extends Activity
     	/*
     	if( item != null ) {
 	    	for( int i=0; i < item.length; i++ ) {
-	    		data = new MainMenuData();
+	    		data = new DataMenuData();
 	        	data.setMenuString( item[i] );
 	        	data.setMenuId(ids[i]);
 	        	if( subclmn1[i] == 0 )
@@ -784,10 +784,10 @@ public class MakerManActivity extends Activity
     		listView.removeAllViewsInLayout();
     	}
 
-    	this.list = new ArrayList<MainMenuData>();
+    	this.list = new ArrayList<DataMenuData>();
 
    		// リストの最初は「新規追加」
-		MainMenuData data = new MainMenuData();
+		DataMenuData data = new DataMenuData();
     	data.setMenuString( getString(R.string.add) );
        	data.setResId( android.R.drawable.ic_menu_add );
     	list.add( data );
@@ -818,7 +818,7 @@ public class MakerManActivity extends Activity
     	//item = getResources().getStringArray(R.array.main_menu);
     	if( item != null ) {
 	    	for( int i=0; i < item.length; i++ ) {
-	    		data = new MainMenuData();
+	    		data = new DataMenuData();
 	        	data.setMenuString( item[i] );
 	        	data.setMenuId(ids[i]);
 	        	// アイコン無し

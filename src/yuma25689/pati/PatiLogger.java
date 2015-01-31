@@ -8,9 +8,11 @@ import java.util.Date;
 
 //import mediba.ad.sdk.android.openx.MasAdView;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.app.backup.BackupManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -32,12 +34,14 @@ import android.graphics.Color;
 //import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 //import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 //import android.preference.ListPreference;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -49,6 +53,25 @@ import android.widget.Toast;
 public class PatiLogger extends Activity 
 	implements AdapterView.OnItemClickListener, Runnable {
 
+	// 初回起動かどうかの調査用
+	public static final String KEY_INIT_STATE = "InitState";
+	public static final int PREFERENCE_INIT = 0;
+	public static final int PREFERENCE_BOOTED = 1;
+	//データ保存
+	private void setInitState(int state) {
+	    // SharedPreferences設定を保存
+	    SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+	    sp.edit().putInt(KEY_INIT_STATE, state).commit();
+	}	 
+	//データ読み出し
+	private int getInitState() {
+	    // 読み込み
+	    int state;
+	    SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+	    state = sp.getInt(KEY_INIT_STATE, PREFERENCE_INIT);
+		return state;
+	}	
+	
 	private ActivityCommonLogic commLogic = ActivityCommonLogicFactory.create();//new ActivityCommonLogic();
 
 	private static final String DEFAULT_QR_CODE_APP_PACKAGE = "com.google.zxing.client.android";
@@ -76,6 +99,7 @@ public class PatiLogger extends Activity
 	public static final int PROGRESS_MAX_MSG_ID = 2;
 	public static final int PROGRESS_VAL_MSG_ID = 3;
 	public static final int PROGRESS_VAL_INCL_MSG_ID = 4;
+	private static final String TAG = "PatiLogger MainActivity";
 	
 	// 別スレッド実行中のイベントを処理するハンドラ
 	private final Handler handler = new Handler()
@@ -223,6 +247,7 @@ public class PatiLogger extends Activity
         listView.setDividerHeight(1);
         dbHelper = new PatiManDBHelper(this);
     	
+        setInitState( PREFERENCE_BOOTED );        
         //updateAdapter();
     }
 
@@ -394,11 +419,18 @@ public class PatiLogger extends Activity
     /**
      * オプションメニューの選択イベント
      */
-    public boolean onOptionsItemSelected(MenuItem item) {
+    @SuppressLint("NewApi")
+	public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case Menu.FIRST:
         	//ChooseFile();
-			// エクスポート
+			// エクスポート(テスト用記述)
+//        	if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO )
+//        	{
+//	        	BackupManager bkMng = new BackupManager(this);
+//	        	bkMng.dataChanged();
+//	        	Log.v(TAG, "backup data changed called.");
+//        	}
 			// モード選択・・・したいんだけど・・・
 			Date timeOfExport = new Date();
 	        SimpleDateFormat dtFmt = 

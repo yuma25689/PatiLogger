@@ -2,9 +2,9 @@
 
 dir
 1
-http://192.168.1.7:1106/svn/PatiLogger/bin/classes/yuma25689
+http://192.168.1.7:1106/svn/PatiLogger/src/yuma25689
 http://192.168.1.7:1106/svn/PatiLogger
-delete
+
 
 
 2013-02-15T09:28:57.750000Z
@@ -28,8 +28,4 @@ afdd2dab-1182-a943-bb23-249e9b1dceec
 
 pati
 dir
-
-
-
-delete
 

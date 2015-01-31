@@ -26,6 +26,7 @@
 			android:layout_height="wrap_content" />
 </LinearLayout>
 <LinearLayout
+    android:orientation="horizontal"    
 	android:id="@+id/money_bottomBar"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"

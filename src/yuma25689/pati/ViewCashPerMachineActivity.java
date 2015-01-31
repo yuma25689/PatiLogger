@@ -35,6 +35,7 @@ public class ViewCashPerMachineActivity extends Activity
         listView = (ListView) this.findViewById(R.id.lstViewParMachineMain);
         listView.setFocusableInTouchMode(true);
         listView.setOnItemClickListener(this);
+        listView.setFastScrollEnabled(true);
 
         tblInf.setDBName( getString(R.string.db_name) );
         tblInf.setTblName( getString(R.string.MoneyTblName) );

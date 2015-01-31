@@ -2,7 +2,7 @@
 
 dir
 1
-http://192.168.1.7:1106/svn/PatiLogger/bin/classes
+http://192.168.1.7:1106/svn/PatiLogger/src
 http://192.168.1.7:1106/svn/PatiLogger
 
 
@@ -28,8 +28,4 @@ afdd2dab-1182-a943-bb23-249e9b1dceec
 
 yuma25689
 dir
-
-
-
-delete
 

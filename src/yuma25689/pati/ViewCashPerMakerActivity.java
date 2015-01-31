@@ -49,6 +49,7 @@ public class ViewCashPerMakerActivity extends Activity
         listView = (ListView) this.findViewById(R.id.lstViewParMachineMain);
         listView.setFocusableInTouchMode(true);
         listView.setOnItemClickListener(this);
+        listView.setFastScrollEnabled(true);
 
         listView
         .setOnCreateContextMenuListener(new OnCreateContextMenuListener() {

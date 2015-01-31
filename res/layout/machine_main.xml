@@ -17,6 +17,7 @@ android:text="@string/no_data"
 android:gravity="center"
 android:layout_weight="1.0"></TextView>
 <LinearLayout
+    android:orientation="horizontal"
 	android:id="@+id/mcnview_bottomBar"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"

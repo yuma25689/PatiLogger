@@ -222,6 +222,7 @@ public class MachineManActivity extends Activity
          }
 
         });
+        listView.setFastScrollEnabled(true);
         
     }
     // リスト選択イベントの処理
@@ -969,7 +970,7 @@ public class MachineManActivity extends Activity
 		        			this, dbMachine, String.valueOf( arrCash.get(j).getMcnId() ) 
 		        			);
 		        	Integer patiTypeId = -1;
-		        	if( strPatiTypeId.isEmpty() == false )
+		        	if( strPatiTypeId != null && 0 < strPatiTypeId.length() )
 		        	{
 		        		patiTypeId = Integer.parseInt( strPatiTypeId );
 		        	}
@@ -1015,7 +1016,8 @@ public class MachineManActivity extends Activity
 		        			this, dbMachine, String.valueOf( arrCash.get(j).getMcnId() ) 
 		        			);
 		        	Integer patiTypeId = -1;
-		        	if( strPatiTypeId.isEmpty() == false )
+		        	// if( strPatiTypeId.isEmpty() == false )
+		        	if( strPatiTypeId != null && 0 < strPatiTypeId.length() )
 		        	{
 		        		patiTypeId = Integer.parseInt( strPatiTypeId );
 		        	}
@@ -1065,7 +1067,8 @@ public class MachineManActivity extends Activity
 		        			this, dbMachine, String.valueOf( arrRecent.get(j).getMcnId() ) 
 		        			);
 		        	Integer patiTypeId = -1;
-		        	if( strPatiTypeId.isEmpty() == false )
+		        	//if( strPatiTypeId.isEmpty() == false )
+		        	if( strPatiTypeId != null && 0 < strPatiTypeId.length() )		        		
 		        	{
 		        		patiTypeId = Integer.parseInt( strPatiTypeId );
 		        	}

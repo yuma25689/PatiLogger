@@ -11,7 +11,7 @@ public class PatiManDBHelper extends DBHelper {
 	private static final long serialVersionUID = 1L;
 
 	private final int TBL_CNT = 5;
-	private static final String dbName = "PatiLogger.db";
+	public static final String dbName = "PatiLogger.db";
 	private static final int dbVer = 10;
 	
 	public PatiManDBHelper(Context context) {

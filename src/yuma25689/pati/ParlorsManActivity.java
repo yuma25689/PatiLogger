@@ -1,7 +1,10 @@
 package yuma25689.pati;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 //import mediba.ad.sdk.android.openx.MasAdView;
@@ -22,12 +25,15 @@ import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.view.View.OnCreateContextMenuListener;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 //import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
@@ -38,7 +44,11 @@ public class ParlorsManActivity extends Activity
 	private ActivityCommonLogic commLogic = ActivityCommonLogicFactory.create();//new ActivityCommonLogic();
 	private ExpandableListView listView;
 	//private ListView listView;
-	private ArrayList<MainMenuData> list = null;
+	private ArrayList<DataMenuData> list = null;
+
+	private final int MODE_ALL = 1;
+	private final int MODE_SORT = 2;
+	private int currentMode = MODE_ALL;
 	
 	private final int MENU_MONEY_VIEW = 1;
 	private final int MENU_DELETE = 2;
@@ -61,6 +71,9 @@ public class ParlorsManActivity extends Activity
 	private String strSrchWord = "";
 
 	private ExpandableListAdapter mAdapter;
+	
+	ToggleButton btnAll;
+	ToggleButton btnSort;
 	
     /** Called when the activity is first created. */
     @Override
@@ -116,18 +129,47 @@ public class ParlorsManActivity extends Activity
     	dbParlor = new PatiManDBHelper(
         	this
         );
-        		//, 
-        		//tblInf_ParlorMain
-        //);
-    	/*
-        libAdMaker AdMaker = (libAdMaker)findViewById(R.id.admakerview);
-        AdMaker.setActivity(this);
-        AdMaker.siteId = "2318";
-        AdMaker.zoneId = "6229";
-        AdMaker.setUrl("http://images.ad-maker.info/apps/g6j7xncu5e83.html");
-        AdMaker.start();		
-    	*/
-        updateAdapter();
+
+      	LinearLayout btm = (LinearLayout) this.findViewById(R.id.parlorview_bottomBar);
+    	LayoutParams prms_w1 = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT
+    				, LayoutParams.WRAP_CONTENT, (float)1.0 );
+//    	LayoutParams prms_w2 = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT
+//    				, LayoutParams.WRAP_CONTENT );
+    	btnAll = new ToggleButton(this);
+    	btnAll.setTextOn(getString(R.string.btnAll));
+    	btnAll.setTextOff(getString(R.string.btnAll));
+    	btnAll.setLayoutParams(prms_w1);
+    	btnAll.setOnClickListener(new View.OnClickListener() {
+ 			@Override
+ 			public void onClick(View v) {
+ 				// 全部表示に切り替える
+ 				currentMode = MODE_ALL;
+ 		    	btnAll.setChecked(true);
+ 		    	btnSort.setChecked(false);
+ 				updateAdapter();
+ 			}
+ 		});
+    	btm.addView(btnAll);
+    	btnSort = new ToggleButton(this);
+    	btnSort.setTextOn(getString(R.string.btnSpecial));
+    	btnSort.setTextOff(getString(R.string.btnSpecial));
+    	btnSort.setOnClickListener(new View.OnClickListener() {
+ 			@Override
+ 			public void onClick(View v) {
+ 				// 最近の表示に切り替える				
+ 				currentMode = MODE_SORT;
+ 		    	btnAll.setChecked(false);
+ 		    	btnSort.setChecked(true);
+ 				updateAdapter();
+ 			}
+    	});
+    	btnSort.setLayoutParams(prms_w1);
+    	btm.addView(btnSort);
+    	btnAll.setChecked(true);
+    	btnSort.setChecked(false);
+
+    	
+    	updateAdapter();
 
         listView
         .setOnCreateContextMenuListener(new OnCreateContextMenuListener() {
@@ -148,7 +190,7 @@ public class ParlorsManActivity extends Activity
 			
 				   // Array created earlier when we built the
 				   // expandable list
-				  MainMenuData contact = (MainMenuData) mAdapter.getChild(
+				  DataMenuData contact = (DataMenuData) mAdapter.getChild(
 						  groupPosition, childPosition);
 				  menu.setHeaderTitle(contact.getMenuString());
 				  menu.add(0, MENU_EDIT, 0, "編集");
@@ -246,7 +288,7 @@ public class ParlorsManActivity extends Activity
     	     .getPackedPositionChild(info.packedPosition);  
     	  }  
     	  
-    	  MainMenuData contact = (MainMenuData) mAdapter.getChild(groupPos, childPos);  
+    	  DataMenuData contact = (DataMenuData) mAdapter.getChild(groupPos, childPos);  
     	  switch (menuItem.getItemId()) { 
 	    	  case MENU_EDIT:
 	    		  startEditItem(contact.getMenuId());
@@ -312,7 +354,7 @@ public class ParlorsManActivity extends Activity
     			startActivity( intent );    			
     			break;
     		default:
-    			MainMenuData item = list.get(position);
+    			DataMenuData item = list.get(position);
     			
     			// 結果取得用の起動の場合、結果を返して終了
     			if( iRequestResult == 1 )
@@ -369,7 +411,7 @@ public class ParlorsManActivity extends Activity
     		 */
     		
     	} catch( Exception e ) {
-    		Toast.makeText( this, e.getMessage(), Toast.LENGTH_SHORT );
+    		Toast.makeText( this, e.getMessage(), Toast.LENGTH_SHORT ).show();
     	}
 
     }
@@ -409,11 +451,11 @@ public class ParlorsManActivity extends Activity
 			intent.putExtra(getString(R.string.key_tblSubClmn1), "");
 			intent.putExtra(getString(R.string.key_tblSubClmn2), "");
 			intent.putExtra(getString(R.string.key_tblSubClmn3), "");
-			//intent.putExtra("DBHelper", dbMachine);
+			//intent.putExtra("DBHelper", dbParlor);
 			startActivity( intent );    			
 			break;*/
 		default:
-			MainMenuData item = (MainMenuData)adapter.getChild(groupPosition, childPosition);
+			DataMenuData item = (DataMenuData)adapter.getChild(groupPosition, childPosition);
 
 			// 結果取得用の起動の場合、結果を返して終了
 			if( iRequestResult == 1 )
@@ -451,7 +493,7 @@ public class ParlorsManActivity extends Activity
 			intent.putExtra(getString(R.string.key_tblSubClmn1), "");
 			intent.putExtra(getString(R.string.key_tblSubClmn2), "");
 			intent.putExtra(getString(R.string.key_tblSubClmn3), "");
-			//intent.putExtra("DBHelper", dbMachine);
+			//intent.putExtra("DBHelper", dbParlor);
 			startActivity( intent );    			
 			break;
 		}
@@ -606,13 +648,20 @@ public class ParlorsManActivity extends Activity
     	if( listView != null ) {
     		listView.removeAllViewsInLayout();
     	}
+    	
+    	if( currentMode == MODE_SORT )
+    	{
+    		updateAdapterSort();
+    		return;
+    	}
+    	
     	String strWherePhrase = "";
     	String strTitleAddString = "";
     	// 親要素  
         groupData = new ArrayList<String>();  
         // 子要素  
-        List<List<MainMenuData>> childData 
-        	= new ArrayList<List<MainMenuData>>();    	
+        List<List<DataMenuData>> childData 
+        	= new ArrayList<List<DataMenuData>>();    	
 
     	String strAdd_ex = "";
     	if( PatiLogger.isExistLastFinishNotUpdData( this, getString(R.string.ParlorTblName) ) )
@@ -639,8 +688,8 @@ public class ParlorsManActivity extends Activity
        	tblInf_ParlorMain.setWherePhrase(strWherePhrase);    	
    		// リストの最初は「新規追加」
         /*
-        this.list = new ArrayList<MainMenuData>();
-    	MainMenuData data = new MainMenuData();
+        this.list = new ArrayList<DataMenuData>();
+    	DataMenuData data = new DataMenuData();
     	data.setMenuString( getString(R.string.add) );
        	data.setResId( android.R.drawable.ic_menu_add );
     	list.add( data );
@@ -652,14 +701,14 @@ public class ParlorsManActivity extends Activity
     	// 台の名称の最初の1文字を取得
     	String[] columns = {
     			"COUNT(*)",
-    			"SUBSTR(" + getString(R.string.ParlorTblMainClmnName) + ", 1, 1)"
+    			"SUBSTR(" + getString(R.string.ParlorTblMainClmnName) + ", 1, 2)"
     			};
     	String selection = tblInf_ParlorMain.getWherePhrase();//null;
-    	String groupBy = "SUBSTR(" + getString(R.string.ParlorTblMainClmnName) + ", 1, 1)";
+    	String groupBy = "SUBSTR(" + getString(R.string.ParlorTblMainClmnName) + ", 1, 2)";
     	SQLiteDatabase db = dbParlor.getReadableDatabase();
     	try {
 	    	Cursor cPrt1 = db.query(tblInf_ParlorMain.getTblName(),
-	    			columns, selection, null, groupBy, null, "SUBSTR(" + getString(R.string.ParlorTblMainClmnName) + ", 1, 1)");
+	    			columns, selection, null, groupBy, null, "SUBSTR(" + getString(R.string.ParlorTblMainClmnName) + ", 1, 2)");
 	    	cPrt1.moveToFirst();
 	    	for (int i = 0; i < cPrt1.getCount(); i++) {
 	    		//Map<String, String> curMap = new HashMap<String, String>();
@@ -683,13 +732,13 @@ public class ParlorsManActivity extends Activity
 	    			//curMap.put( GRP_NAME_KEY, strCurParentName );
 	    			groupData.add( strCurParentName );//curMap );
 	    		//}
-	    		List<MainMenuData> children = new ArrayList<MainMenuData>();
+	    		List<DataMenuData> children = new ArrayList<DataMenuData>();
 	    		String[] columnsChild = {"_id",getString(R.string.ParlorTblMainClmnName)};//,
 	        			//getString(R.string.ParlorTblSubClmnName1)};
 	        	String selectionChild = "SUBSTR(" 
 	        		+ getString(R.string.ParlorTblMainClmnName) + ", 1, " 
 	        		+ strCurParentName.length() + " ) = '" + strCurParentName + "'";
-	        	//SQLiteDatabase db = dbMachine.getReadableDatabase();
+	        	//SQLiteDatabase db = dbParlor.getReadableDatabase();
 	        	if( null != tblInf_ParlorMain.getWherePhrase() && tblInf_ParlorMain.getWherePhrase().length() > 0 )
 	        	{
 	        		selectionChild += " and " + tblInf_ParlorMain.getWherePhrase();
@@ -708,7 +757,7 @@ public class ParlorsManActivity extends Activity
 	    	    	    //subclmn1[j] = cChild.getInt(2);
 	    	    	    // Map<String, String> curChildMap = new HashMap<String, String>();
 	    	    	    //curChildMap.put( CHILD_NAME_KEY, cChild.getString(1) );
-	    	    	    MainMenuData data = new MainMenuData();
+	    	    	    DataMenuData data = new DataMenuData();
 	    	        	data.setMenuString( cChild.getString(1) );
 	    	        	data.setMenuId(cChild.getInt(0));
 	    	        	//if( cChild.getInt(2) == 0 )
@@ -773,7 +822,7 @@ public class ParlorsManActivity extends Activity
     	/*
     	if( item != null ) {
 	    	for( int i=0; i < item.length; i++ ) {
-	    		data = new MainMenuData();
+	    		data = new DataMenuData();
 	        	data.setMenuString( item[i] );
 	        	data.setMenuId(ids[i]);
 	        	if( subclmn1[i] == 0 )
@@ -814,10 +863,10 @@ public class ParlorsManActivity extends Activity
     		listView.removeAllViewsInLayout();
     	}
 
-    	this.list = new ArrayList<MainMenuData>();
+    	this.list = new ArrayList<DataMenuData>();
 
    		// リストの最初は「新規追加」
-		MainMenuData data = new MainMenuData();
+		DataMenuData data = new DataMenuData();
     	data.setMenuString( getString(R.string.add) );
        	data.setResId( android.R.drawable.ic_menu_add );
     	list.add( data );
@@ -848,7 +897,7 @@ public class ParlorsManActivity extends Activity
     	//item = getResources().getStringArray(R.array.main_menu);
     	if( item != null ) {
 	    	for( int i=0; i < item.length; i++ ) {
-	    		data = new MainMenuData();
+	    		data = new DataMenuData();
 	        	data.setMenuString( item[i] );
 	        	data.setMenuId(ids[i]);
 	        	// アイコン無し
@@ -867,6 +916,251 @@ public class ParlorsManActivity extends Activity
     	listView.setAdapter(adapter);
     	*/
     }
+    
+    /**
+     * ソートモードの場合
+     */
+    private void updateAdapterSort() {
+
+    	// 1グループ30件
+    	final int SORT_MODE_GROUP_CNT = 30;
+     	
+    	String where = "";
+    	tblInf_ParlorMain.setWherePhrase(where);
+
+    	// 親要素  
+        groupData = new ArrayList<String>();
+        // 子要素
+        List<List<DataMenuData>> childData 
+        	= new ArrayList<List<DataMenuData>>();
+        
+    	// グループとなる文字列の配列
+        String[] groups = {
+        	"最近打った順(最近の30件)","勝ち額順(最近3ヶ月の上位30件)","負け額順(最近3ヶ月の上位30件)"
+        };
+    	
+        // 台情報格納用クラス
+        class ItemInfo
+        {
+        	String LastRegistDateTime;
+        	int CashFlow;
+        	int id;
+        	/**
+        	 * @return the lastRegistDateTime
+        	 */
+        	public String getLastRegistDateTime() {
+        		return LastRegistDateTime;
+        	}
+        	/**
+        	 * @param lastRegistDateTime the lastRegistDateTime to set
+        	 */
+        	public void setLastRegistDateTime(String lastRegistDateTime) {
+        		LastRegistDateTime = lastRegistDateTime;
+        	}
+        	/**
+        	 * @return the cashFlow
+        	 */
+        	public int getCashFlow() {
+        		return CashFlow;
+        	}
+        	/**
+        	 * @param cashFlow the cashFlow to set
+        	 */
+        	public void setCashFlow(int cashFlow) {
+        		CashFlow = cashFlow;
+        	}
+        	/**
+        	 * @return the id
+        	 */
+        	public int getParlorId() {
+        		return id;
+        	}
+        	/**
+        	 * @param parlorId the id to set
+        	 */
+        	public void setParlorId(int parlorId) {
+        		id = parlorId;
+        	}        	
+        };
+		// 現在日時を取得しておく
+		Calendar now = Calendar.getInstance();
+		Date d = now.getTime();
+		d.setMonth( d.getMonth() - 3 );
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		String strDateBefore3Month = sdf.format(d);
+        
+        // 店ごとの勝ち負けの額をマップに取得する
+        //TreeMap<Integer,Integer> mapCash = new TreeMap<Integer,Integer>();
+        ArrayList<ItemInfo> arrCash = new ArrayList<ItemInfo>();
+        
+       	String[] columns = {"sum(CashFlow)","ParlorId","sum(ExpVal)"};
+       	// 3ヶ月前以降の稼働のみ
+    	String selection = "ParlorId is not null and WorkDate >= '" + strDateBefore3Month + "'";
+    	String groupBy = "ParlorId";
+    	String orderBy = "sum(CashFlow) desc";
+    	SQLiteDatabase dbRead = dbParlor.getReadableDatabase();
+    	try {
+	    	Cursor c = dbRead.query("MoneyMan",
+	    			columns, selection, null, groupBy, null, orderBy);
+	    	if( 0 < c.getCount() )
+	    	{
+		    	c.moveToFirst();
+		    	//int iCnt = 0;
+		    	do
+		    	{
+		    		//iCnt++;
+		    		// mapCash.put(c.getInt(2), c.getInt(1));
+		    		ItemInfo ii = new ItemInfo();
+		    		ii.setCashFlow(c.getInt(0));
+		    		ii.setParlorId(c.getInt(1));
+		    		arrCash.add( ii );
+		    	} while( c.moveToNext() );
+	    	}
+		    c.close();
+    	} catch( Exception e ) {
+    		e.printStackTrace();
+    	}
+        // 最近登録された順に、台をマップに取得する
+    	ArrayList<ItemInfo> arrRecent = new ArrayList<ItemInfo>();
+       	String[] columnsRecent = {"ParlorId","max(WorkDate||WorkTime)"};
+    	String groupByRecent = "ParlorId";
+    	String orderByRecent = "WorkDate desc,WorkTime desc";
+    	try {
+	    	Cursor c = dbRead.query("MoneyMan",
+	    			columnsRecent, selection, null, groupByRecent, null, orderByRecent);
+	    	if( 0 < c.getCount() )
+	    	{
+		    	c.moveToFirst();
+		    	int iCnt = 0;
+		    	do {
+		    		iCnt++;
+		    		if( SORT_MODE_GROUP_CNT < iCnt )
+		    		{
+		    			break;
+		    		}
+		    		ItemInfo ii = new ItemInfo();
+		    		ii.setLastRegistDateTime(c.getString(1));
+		    		ii.setParlorId(c.getInt(0));
+		    		arrRecent.add( ii );
+
+		    	} while( c.moveToNext() );
+	    	}
+		    c.close();
+    	} catch( Exception e ) {
+    		e.printStackTrace();
+    	}
+    	dbRead.close();
+    	
+    	for (int i = 0; i < groups.length; i++) {
+    		String strCurParentName = "";
+    		strCurParentName = groups[i];
+    		
+    		// グループが2つ目の場合
+    		if( i==1 )
+    		{
+    			if( 0 < arrCash.size() )
+    			{
+    				groupData.add( strCurParentName );
+    			}
+        		List<DataMenuData> children = new ArrayList<DataMenuData>();
+
+        		for (int j = 0; j < arrCash.size() && j < SORT_MODE_GROUP_CNT; j++) {
+	        	        	        		
+		    	    DataMenuData data = new DataMenuData();
+		    	    String name = TableControler.getParlorNameFromParlorId(
+		        			this, dbParlor, String.valueOf( arrCash.get(j).getParlorId() ) );
+		        	data.setMenuString( ( j + 1 )+ "." + name
+		        			);
+		        	data.setRightString(arrCash.get(j).getCashFlow() + "円" );
+    	        	data.setHideString( name );
+		        	
+		        	data.setMenuId(arrCash.get(j).getParlorId() );
+		        	// アイコンの設定
+			        data.setResId( R.drawable.parlor_toriaezu );
+		    	    
+		    	    children.add( data );
+	    		}
+        	    childData.add( children );
+    		}
+    		// グループが3つ目の場合
+    		if( i==2 )
+    		{
+    			if( 0 < arrCash.size() )
+    			{
+    				groupData.add( strCurParentName );
+    			}
+        		List<DataMenuData> children = new ArrayList<DataMenuData>();
+    			
+        		int k=0;
+	    		for (int j = arrCash.size()-1; 0 <= j && arrCash.size()-30 <= j; j--, k++) {
+	        	        	        		
+		    	    DataMenuData data = new DataMenuData();
+		    	    String name = TableControler.getParlorNameFromParlorId(
+		        			this, dbParlor, String.valueOf( arrCash.get(j).getParlorId() ) );
+		        	data.setMenuString( ( k + 1 )+ "." + name
+		        			);
+		        	data.setRightString(arrCash.get(j).getCashFlow() + "円" );
+    	        	data.setHideString( name );
+		        	data.setMenuId(arrCash.get(j).getParlorId() );
+
+		        	// アイコンの設定
+			        data.setResId( R.drawable.parlor_toriaezu );
+		    	    
+		    	    children.add( data );
+	    		}
+	    	    childData.add( children );
+    		}
+    		// グループが1つ目の場合
+    		if( i==0 )
+    		{
+    			if( 0 < arrRecent.size() )
+    			{
+    				groupData.add( strCurParentName );
+    			}
+        		List<DataMenuData> children = new ArrayList<DataMenuData>();
+    			
+	    		for (int j = 0; j < arrRecent.size() && j < SORT_MODE_GROUP_CNT; j++) {
+	        	        	        		
+		    	    DataMenuData data = new DataMenuData();
+		    	    String strAdd = arrRecent.get(j).getLastRegistDateTime();
+		    	    if( strAdd != null && 12 == strAdd.length() )
+		    	    {
+	        			strAdd = " " + TableControler.getFmtDate( strAdd.substring(0,8) ) 
+	        			+ " " + TableControler.getFmtTime( strAdd.substring(8) );   	    	
+		    	    }
+		        	data.setMenuString( ( j + 1 ) + "." + TableControler.getParlorNameFromParlorId(
+		        			this, dbParlor, String.valueOf( arrRecent.get(j).getParlorId() ) 
+		        			) + strAdd
+		        			);
+		        	data.setMenuId(arrRecent.get(j).getParlorId() );
+
+		        	// アイコンの設定
+			        data.setResId( R.drawable.parlor_toriaezu );
+		    	    
+		    	    children.add( data );
+	    		}
+	    	    childData.add( children );
+    		}    		
+    	}
+    	
+    	mAdapter = new DataExpandableListAdapter(
+    				this,
+    				groupData,
+    				childData
+    			);
+        listView.setAdapter(mAdapter);      	
+        listView.setFocusableInTouchMode(true);
+        listView.setOnChildClickListener(this);//setOnItemClickListener(this);
+        
+        if( strMessage != null )
+        {
+        	Toast.makeText( ParlorsManActivity.this, strMessage, Toast.LENGTH_LONG ).show();
+        	strMessage = null;
+        }
+        
+        setTitle(strTitle);
+    }
+    
     /*
      * オプションメニューの作成
      */
