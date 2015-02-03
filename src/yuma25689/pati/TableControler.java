@@ -24,6 +24,10 @@ public class TableControler {
 	}	
 
 	// TODO: 後で別のクラスに（共通クラスを作成して）移す
+	public static String getFmtYear( String strYear )
+	{
+		return strYear.substring(0,4);
+	}
 	public static String getFmtMonth( String strDate )
 	{
 		return

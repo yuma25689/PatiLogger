@@ -7,5 +7,21 @@
 			android:key="lst_qr_launch_key"
 			android:title="@string/lst_qr_launch_title"
 			android:dialogTitle="@string/lst_qr_launch_title" />
+		<CheckBoxPreference
+		    android:id="@+id/mainpref_ignore_month_set"
+			android:key="chk_ignore_month_set_key"
+			android:title="@string/ignore_month_set_title"
+			android:summary="@string/ignore_month_set_summary"
+			android:dialogTitle="@string/ignore_month_set_title" />
+		<EditTextPreference
+		    android:id="@+id/mainpref_ignore_month"
+	        android:defaultValue="3"
+	        android:dependency="chk_ignore_month_set_key"
+	        android:inputType="number"
+	        android:maxLength="2"
+			android:key="ignore_month_for_sort"
+			android:title="@string/ignore_month_title"
+			android:summary="@string/ignore_month_summary"
+			android:dialogTitle="@string/ignore_month_title" />
 	</PreferenceCategory>
 </PreferenceScreen>

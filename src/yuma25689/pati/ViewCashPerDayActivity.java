@@ -314,6 +314,7 @@ public class ViewCashPerDayActivity extends Activity
 	    	    c.moveToNext();
 	    	}
 	    	c.close();
+	    	dbRead.close();
 	    	//item = getResources().getStringArray(R.array.main_menu);
 	    	if( item != null ) {
 		    	for( int i=0; i < item.length; i++ ) {

@@ -9,7 +9,11 @@
     <string name="not_want_set">設定しない</string>
 	<string name="pref_title">設定</string>
 	<string name="lst_qr_launch_title">起動する他アプリ</string>
-	
+	<string name="ignore_month_set_title">台の優先順位設定</string>
+	<string name="ignore_month_set_summary">指定月以上前から収支に登録されていない台、店は、収支登録時に優先的にスピナの上の方に表示する対象から無視する機能を使うかどうか</string>
+	<string name="ignore_month_title">月</string>
+	<string name="ignore_month_summary">この月より前から収支に登録されていない台、店は収支登録時に優先的にスピナの上の方に表示する対象から無視</string>
+				
     <string name="key_tblLevel">tblLevel</string>
     <string name="key_tblOpenInfArray">tblOpenInfArray</string>
     <string name="key_tblMainClmn">tblMainClmn</string>
@@ -50,6 +54,7 @@
     <string name="DlgTitle_MoneySrch">収支検索</string>
     <string name="DlgTitle_ViewPerDay">日別収支一覧</string>
     <string name="DlgTitle_ViewPerMonth">月別収支一覧</string>
+    <string name="DlgTitle_ViewPerYear">年別収支一覧</string>
     <string name="DlgTitle_ViewPerMachine">台別収支一覧</string>
     <string name="DlgTitle_ViewPerShop">店別収支一覧</string>
     <string name="DlgTitle_ViewPerMaker">メーカー別収支一覧</string>
@@ -189,6 +194,7 @@
 	<string-array name="dataview_menu">
 		<item>日別収支閲覧</item>
 		<item>月別収支閲覧</item>
+		<item>年別収支閲覧</item>
 		<item>台別収支閲覧</item>
 		<item>店別収支閲覧</item>
 		<item>メーカー別収支閲覧</item>

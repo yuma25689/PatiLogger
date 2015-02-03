@@ -5,9 +5,8 @@
     android:layout_height="fill_parent"
     >
 
-<ListView android:id="@+id/lstViewParMonthMain"
-android:layout_width="fill_parent"
-android:layout_height="wrap_content">
-</ListView>
+<ListView android:id="@+id/lstViewParYearMain" 
+android:layout_width="fill_parent" 
+android:layout_height="wrap_content"></ListView>
 
 </LinearLayout>

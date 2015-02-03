@@ -11,9 +11,11 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -1170,11 +1172,23 @@ public class RecordUpdater extends ScrollView {
 		// 現在日時を取得、数ヶ月前以前から登録のない台は、前に行かないようにする。
 		Calendar now = Calendar.getInstance();
 		Date d = now.getTime();
-		d.setMonth( d.getMonth() - 3 );
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-		String strDateBefore3Month = sdf.format(d);
-		String strPeriodConditionWherePhrase = " where WorkDate >= '" + strDateBefore3Month + "' ";
-		
+		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(ctx);
+		String strPeriodConditionWherePhrase = "";
+		Boolean blnIgnoreMonthBefore = sp.getBoolean("chk_ignore_month_set_key", false );
+		if( blnIgnoreMonthBefore )
+		{
+			Integer ignoreMonthBefore = 3;
+			try
+			{
+				ignoreMonthBefore = Integer.parseInt(sp.getString( "ignore_month_for_sort", "3" ));
+			} catch( ClassCastException e ) {
+				ignoreMonthBefore = 3;
+			}
+			d.setMonth( d.getMonth() - ignoreMonthBefore );
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+			String strDateBefore3Month = sdf.format(d);
+			strPeriodConditionWherePhrase = " where WorkDate >= '" + strDateBefore3Month + "' ";
+		}
 		// ★台
 		// TODO: ビタ打ちできたら直す
 		if( clmnTmp.getStrColumnName().equals( "McnId" ) )

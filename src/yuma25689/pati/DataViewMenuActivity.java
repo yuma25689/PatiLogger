@@ -41,9 +41,9 @@ public class DataViewMenuActivity extends Activity
         setContentView(R.layout.main);
         
         setTitle(getString(R.string.DlgTitle_DataView));
-        
+
         commLogic.init(this);
-        
+
         listView = (ListView) this.findViewById(R.id.lstMain);
         listView.setFocusableInTouchMode(true);
         listView.setOnItemClickListener(this);
@@ -88,21 +88,26 @@ public class DataViewMenuActivity extends Activity
     			startActivity( intent );
     			break;
     		case 2:
+    			// 年別収支表示インテントを呼び出す
+    			intent = new Intent( this, ViewCashPerYearActivity.class );
+    			startActivity( intent );
+    			break;
+    		case 3:
     			// 台別収支表示インテントを呼び出す
     			intent = new Intent( this, ViewCashPerMachineActivity.class );
     			startActivity( intent );
     			break;
-    		case 3:
+    		case 4:
     			// 店別収支表示インテントを呼び出す
     			intent = new Intent( this, ViewCashPerShopActivity.class );
     			startActivity( intent );
     			break;
-    		case 4:
+    		case 5:
     			// メーカー別収支表示インテントを呼び出す
     			intent = new Intent( this, ViewCashPerMakerActivity.class );
     			startActivity( intent );
     			break;
-    		case 5:
+    		case 6:
     			// 勝率表示インテントを呼び出す
     			intent = new Intent( this, ViewWinRateActivity.class );
     			startActivity( intent );
@@ -137,22 +142,25 @@ public class DataViewMenuActivity extends Activity
             	data.setResId( R.drawable.month );
     			break;
     		case 2:
+            	data.setResId( R.drawable.year );
+    			break;
+    		case 3:
     			// 台別収支表示インテントを呼び出す
             	// TODO: ここは後でアイコンを作って修正する
             	//data.setResId( R.drawable.blank );
             	data.setResId( R.drawable.machine_2_toriaezu );
     			break;
-    		case 3:
+    		case 4:
     			// 店別収支表示インテントを呼び出す
             	//data.setResId( R.drawable.blank );
             	data.setResId( R.drawable.parlor_toriaezu );
     			break;
-    		case 4:
+    		case 5:
     			// 勝率表示インテントを呼び出す
             	//data.setResId( R.drawable.blank );
             	data.setResId( R.drawable.maker2 );
     			break;
-    		case 5:
+    		case 6:
     			// 勝率表示インテントを呼び出す
             	//data.setResId( R.drawable.blank );
             	data.setResId( R.drawable.report );

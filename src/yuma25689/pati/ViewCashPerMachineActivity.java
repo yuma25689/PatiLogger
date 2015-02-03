@@ -3,12 +3,18 @@ package yuma25689.pati;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -22,6 +28,7 @@ public class ViewCashPerMachineActivity extends Activity
 	
 	private TableOpenInfo tblInf = new TableOpenInfo();
 	private DBHelper db = null;
+	private String strSrchWord = "";
 
     /** Called when the activity is first created. */
     @Override
@@ -106,29 +113,65 @@ public class ViewCashPerMachineActivity extends Activity
     	// queryでSELECTを実行
     	String[] columns = {"_id","sum(CashFlow)","McnId","sum(ExpVal)"};
     	String selection = null;
+    	
     	String groupBy = "McnId";
     	String orderBy = "sum(CashFlow) desc";
     	SQLiteDatabase dbRead = db.getReadableDatabase();
     	try {
 	    	Cursor c = dbRead.query(tblInf.getTblName(),
 	    			columns, selection, null, groupBy, null, orderBy);
+	    	// 2015/2/2 台の名称での検索
+	    	int iCount = 0;
+	    	if( strSrchWord != null && 0 < strSrchWord.length())
+	    	{
+		    	c.moveToFirst();
+	    		while ( c.moveToNext() ) {
+	    			String strMachineName = TableControler.getMcnNameFromMcnId( this, db, c.getString(2) );
+	    			if( strMachineName != null && strMachineName.length() != 0 )
+	    			{
+	    				if( -1 != strMachineName.indexOf( strSrchWord ))
+	    				{
+	    					iCount++;
+	    				}
+	    			}
+	    			else
+	    			{
+	    				if( -1 != getString(R.string.unknown).indexOf( strSrchWord ))
+	    				{
+	    					iCount++;
+	    				}
+	    			}
+	    		}
+	    	}
+	    	else
+	    	{
+	    		iCount = c.getCount();
+	    	}
+	    	
+	    	ids = new int[iCount];//c.getCount()];
+	    	item = new String[iCount];//c.getCount()];
+	    	itemExpVal = new String[iCount];//c.getCount()];
+	    	itemRight = new String[iCount];//c.getCount()];
+	    	int iItemIndex = 0;
 	    	c.moveToFirst();
-	    	ids = new int[c.getCount()];
-	    	item = new String[c.getCount()];
-	    	itemExpVal = new String[c.getCount()];
-	    	itemRight = new String[c.getCount()];
-	    	for (int i = 0; i < item.length; i++) {
-	    		ids[i] = c.getInt(0);
+	    	while( c.moveToNext() ) {
+	    	//for (int i = 0; i < c.getCount(); i++) {
 	    		String strMachineName = TableControler.getMcnNameFromMcnId( this, db, c.getString(2) );
 	    		if( strMachineName == null || strMachineName.length() == 0 )
 	    		{
 	    			strMachineName = getString(R.string.unknown);
 	    		}
-	    	    item[i] =  strMachineName;
-	    	    itemRight[i] = String.valueOf( c.getInt( 1 ) );
+	    		if( -1 == strMachineName.indexOf( strSrchWord ))
+	    		{
+	    			continue;
+	    		}
+	    		ids[iItemIndex] = c.getInt(0);
+	    	    item[iItemIndex] =  strMachineName;
+	    	    itemRight[iItemIndex] = String.valueOf( c.getInt( 1 ) );
 	    	    		//+ " " + String.valueOf( c.getInt( 3 ) );
-	    	    itemExpVal[i] = String.valueOf( c.getInt( 3 ) );
-	    	    c.moveToNext();
+	    	    itemExpVal[iItemIndex] = String.valueOf( c.getInt( 3 ) );
+	    	    iItemIndex++;
+	    	    // c.moveToNext();
 	    	}
 	    	c.close();
     	} catch( Exception e ) {
@@ -157,4 +200,66 @@ public class ViewCashPerMachineActivity extends Activity
     	// item );
     	listView.setAdapter(adapter);
     }
+    
+    
+    
+    
+    // ------------ 2015/02/02 検索機能の追加    
+    void filterListItem()
+    {
+        final EditText edit = new EditText(this);
+        edit.setText(strSrchWord);
+        edit.setSingleLine(true);
+        AlertDialog alertDialog = new AlertDialog.Builder(this).
+        	setTitle("台の名前の検索条件設定")
+        	.setView(edit)
+        	.setMessage("以下の入力値を含む名前の台を検索します。")
+        	.setPositiveButton("検索する", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                    String editStr = edit.getText().toString();
+                    strSrchWord = editStr;
+                    updateAdapter();
+                }
+            })
+        	.setNegativeButton("やめる", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                }
+            })
+        	.create();
+        alertDialog.show();
+    	
+    }
+    /*
+     * オプションメニューの作成
+     */
+    public boolean onCreateOptionsMenu(Menu menu) {
+    	boolean ret = super.onCreateOptionsMenu(menu);
+    	menu.add( 0, Menu.FIRST, Menu.NONE, "検索").setIcon(android.R.drawable.ic_menu_search);
+    	return ret;
+    }
+    /**
+     * オプションメニューの選択イベント
+     */
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case Menu.FIRST:
+        	filterListItem();
+        	return true;
+        }
+        return false;
+    }
+    
+    
+	@Override
+	public boolean dispatchKeyEvent(KeyEvent event) {
+		if( event.getKeyCode() == KeyEvent.KEYCODE_SEARCH )
+		{
+			// 検索ボタンが押下された
+			// 検索機能を機能する
+			filterListItem();
+		}
+		
+		return super.dispatchKeyEvent(event);
+	}
+    
 }
